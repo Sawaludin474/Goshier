@@ -34,14 +34,19 @@
 
 
         <li class="nav-item">
-            <form action="{{ Auth::guard('admin')->check() ? route('admin.logout') : route('logout') }}" method="post"> 
+            <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                <i class="fas fa-expand-arrows-alt"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <form action="{{ Auth::guard('admin')->check() ? route('admin.logout') : route('logout') }}" method="post">
                 @csrf
                 <button class="nav-link btn" type="submit">
-                    Logout 
+                    Logout
                     <i class="fas fa-sign-out-alt"></i>
                 </button>
             </form>
-            </li>
-        
+        </li>
+
     </ul>
 </nav>

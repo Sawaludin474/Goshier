@@ -1,9 +1,11 @@
 <?php
 
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +19,13 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('');
 });
+
+Route::get('/cashier', function(){
+    $product = Product::orderBy('p_name','asc')->paginate(6);
+    return view('backend.cashiers',compact('product'));
+})->name('cashierpages');
 
 Route::get('/dashboard', function () {
     return view('backend.index');
@@ -40,5 +47,6 @@ Route::prefix('admin')->group(function (){
 });
 
 Route::resource('users', UserController::class);
+Route::resource('products', ProductController::class);
 
 require __DIR__.'/auth.php';

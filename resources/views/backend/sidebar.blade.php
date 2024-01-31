@@ -10,14 +10,22 @@
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
 
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex" style="display: flex; align-items: center;">
             <div class="image">
-              <img src="{{ asset('/backend/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+                <img src="{{ asset('/backend/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
             </div>
-            <div class="info">
-              <a href="#" class="d-block">Alexander Pierce</a>
+            @if (Auth::guard('web')->check())
+            <div class="info" style="margin-left: 20px;">
+                <a href="#" class="d-block">{{ auth()->user()->name}}</a>
+                <a href="#" class="d-block">{{ auth()->user()->email}}</a>
             </div>
-          </div>
+            @elseif(Auth::guard('admin')->check())
+            <div class="info" style="margin-left: 20px;">
+                <a href="#" class="d-block">{{ auth()->guard('admin')->user()->name}}</a>
+                <a href="#" class="d-block">{{ auth()->guard('admin')->user()->email}}</a>
+            </div>
+            @endif
+        </div>
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -42,7 +50,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./index2.html" class="nav-link active">
+                            <a href="{{ route('products.index')}}" class="nav-link">
                                 <i class="fa fa-box nav-icon"></i>
                                 <p>Products</p>
                             </a>
@@ -51,13 +59,7 @@
                 </li>
                 @endadmin
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fa fa-boxes nav-icon"></i>
-                        <p>Cashiers</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('cashierpages')}}" class="nav-link">
                         <i class="fa fa-boxes nav-icon"></i>
                         <p>Cashiers</p>
                     </a>
